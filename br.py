@@ -29,15 +29,15 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 import random
 
 # Конфигурация
-API_TOKEN = '8750370510:AAHQJJA4T-oBamoe3q5ud3ics0bR4vry_3Y' #токен бота
+API_TOKEN = '8772971088:AAHLVqr7c7cAYe82Hh0fk2l8JIFNA5AAX50' #токен бота
 ADMINS = [7541535601] #айди админа если надо несколько вводите так: 11111, 22222
 STICKER_ID = 'CAACAgIAAxkBAAEQF4ZoWn0zvZUi5kw-VabOdnoueLgoVAACX3gAAri60EqVi9ckQR15FTYE' #айди стикера можете заменить на свой
-CRYPTOBOT_TOKEN = '520778:AApyiBBUzWu44k6pdc1WFee6d23nStw04DT' #криптотокен
-LOG_CHANNEL_ID = -1003758856935 #айди канала
+CRYPTOBOT_TOKEN = '542996:AA0sgRXSUG35rK1gZU53qUUBvNsiLuNJ40l' #криптотокен
+LOG_CHANNEL_ID =  -1003708266599 #айди канала
 LOG_FILE_DIR = "logs"
 
 REQUIRED_CHANNELS = [
-    {"id": -1003749718223, "name": "Канал 1", "url": "https://t.me/nemezidapizza"} # в id ставьте айди для подписки а после url ссылка на канал
+    {"id":-1003749718223 , "name": "Канал 1", "url": "https://t.me/nemezidapizza"} # в id ставьте айди для подписки а после url ссылка на канал
 ]
 
 # Инициализация бота
@@ -273,7 +273,7 @@ def use_promo(code):
     return True
 
 def has_required_username(username):
-    return username and "@NemezidaPh" in username
+    return username and "@MercenaryPerehodnik" in username
 
 async def create_cryptobot_invoice(amount, currency, user_id):
     url = "https://pay.crypt.bot/api/createInvoice"
@@ -284,10 +284,10 @@ async def create_cryptobot_invoice(amount, currency, user_id):
     payload = {
         "asset": currency,
         "amount": str(amount),
-        "description": f"Подписка Nemezida RML для пользователя {user_id}",
-        "hidden_message": "Оплата подписки Nemezida RML",
+        "description": f"Подписка BR Pizza для пользователя {user_id}",
+        "hidden_message": "Оплата подписки BR Pizza",
         "paid_btn_name": "viewItem",
-        "paid_btn_url": "https://t.me/BRRMLBot",
+        "paid_btn_url": "https://t.me/BRPizzaBot",
         "payload": str(user_id),
         "allow_comments": False,
         "allow_anonymous": False
@@ -326,11 +326,11 @@ async def send_admin_log(user_id, username, target_link, target_id, target_usern
                         success_count, failed_count, method, session_logs="", is_premium=False):
     """Отправляет стилизованный лог в канал с деталями по сессиям"""
     # Формируем имя файла лога
-    log_filename = f"NemezidaRML_botnet_{random.randint(1000, 9999)}.txt"
+    log_filename = f"breakruin_botnet_{random.randint(1000, 9999)}.txt"
     log_filepath = os.path.join(LOG_FILE_DIR, log_filename)
 
     # Формируем содержимое лога
-    log_content = f"""NemezidaRML log | botnet-method
+    log_content = f"""BreakRuin log | botnet-method
 ------------------------------------------
 Пользователь: {user_id} (@{username})
 Ссылка: {target_link}
@@ -488,7 +488,7 @@ async def send_email_report(email, password, report_data):
 def main_menu_keyboard():
     keyboard = InlineKeyboardMarkup(row_width=2)
     keyboard.add(
-        InlineKeyboardButton("🍕 Заказать пиццу", callback_data="order_RML")
+        InlineKeyboardButton("🍕 Заказать пиццу", callback_data="order_pizza")
     )
     keyboard.row(
         InlineKeyboardButton("❓ Информация", callback_data="info"),
@@ -505,7 +505,7 @@ def info_keyboard():
     keyboard.add(InlineKeyboardButton("🔥 Канал", url="https://t.me/+SE7QaJWSNHZhZmIy"))
     keyboard.add(InlineKeyboardButton("💬 Наш чат", url="https://t.me/ubischat"))
     keyboard.add(InlineKeyboardButton("🎱 Администрация", url="https://t.me/antarcticubis"))
-    keyboard.add(InlineKeyboardButton("📄 Мануал", url="https://teletype.in/@NemezidaRML/NemezidaRMLmanuals"))
+    keyboard.add(InlineKeyboardButton("📄 Мануал", url="https://teletype.in/@breakruin/breakruinmanuals"))
     keyboard.add(InlineKeyboardButton("👥 Поддержка", url="https://t.me/antarcticubis"))
     keyboard.add(InlineKeyboardButton("[🔙] Назад", callback_data="main_menu"))
     return keyboard
@@ -525,7 +525,7 @@ def prices_keyboard():
         InlineKeyboardButton("⚡ 7 Дней - 5$", callback_data="buy_7"),
         InlineKeyboardButton("⚡ 30 Дней - 9$", callback_data="buy_30")
     )
-    keyboard.add(InlineKeyboardButton("⚡ Навсегда - 16$", callback_data="buy_forever"))
+    keyboard.add(InlineKeyboardButton("⚡ Навсегда - 6$ [-60%]", callback_data="buy_forever"))
     keyboard.add(InlineKeyboardButton("⚡ Premium Upgrade [-40%]", callback_data="buy_premium"))
     keyboard.row(
         InlineKeyboardButton("💳 Оплата картой", callback_data="card_payment"),
@@ -613,8 +613,8 @@ async def cmd_start(message: types.Message):
     update_user_data(user.id, user.full_name, user.username)
     
     try:
-        photo = InputFile("nemezida.png")
-        caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>"
+        photo = InputFile("brpizza.png")
+        caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>"
         
         await bot.send_photo(
             chat_id=message.chat.id,
@@ -626,7 +626,7 @@ async def cmd_start(message: types.Message):
     except Exception as e:
         logger.error(f"Error sending photo: {e}")
         await message.answer(
-            "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+            "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
             reply_markup=main_menu_keyboard(),
             parse_mode="HTML"
         )
@@ -650,8 +650,8 @@ async def cmd_admin(message: types.Message):
 @dp.callback_query_handler(lambda c: c.data == 'main_menu')
 async def main_menu(callback_query: types.CallbackQuery):
     try:
-        photo = InputFile("brRML.png")
-        caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>"
+        photo = InputFile("brpizza.png")
+        caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>"
         
         await bot.edit_message_media(
             media=types.InputMediaPhoto(
@@ -667,7 +667,7 @@ async def main_menu(callback_query: types.CallbackQuery):
         await bot.edit_message_caption(
             chat_id=callback_query.message.chat.id,
             message_id=callback_query.message.message_id,
-            caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+            caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
             reply_markup=main_menu_keyboard(),
             parse_mode="HTML"
         )
@@ -679,8 +679,8 @@ async def check_subscription_callback(callback_query: types.CallbackQuery):
     if await check_subscription(callback_query.from_user.id):
         await callback_query.answer("✅ Спасибо за подписку! Теперь вы можете пользоваться ботом.")
         try:
-            photo = InputFile("brRML.png")
-            caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>"
+            photo = InputFile("brpizza.png")
+            caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>"
 
             await bot.edit_message_media(
                 media=types.InputMediaPhoto(
@@ -696,7 +696,7 @@ async def check_subscription_callback(callback_query: types.CallbackQuery):
             await bot.edit_message_caption(
                 chat_id=callback_query.message.chat.id,
                 message_id=callback_query.message.message_id,
-                caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+                caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
                 reply_markup=main_menu_keyboard(),
                 parse_mode="HTML"
             )
@@ -719,7 +719,7 @@ async def check_subscription_wrapper(callback_query: types.CallbackQuery, handle
 
 @dp.callback_query_handler(lambda c: c.data == 'info')
 async def info_menu(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     caption = "<blockquote><b>Информация</b></blockquote>"
@@ -736,7 +736,7 @@ async def info_menu(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'profile')
 async def profile_menu(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     user = get_user_data(callback_query.from_user.id)
@@ -768,7 +768,7 @@ async def profile_menu(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'prices')
 async def prices_menu(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     caption = """
@@ -779,7 +779,7 @@ async def prices_menu(callback_query: types.CallbackQuery):
 └─ 3 дня - 3$
 └─ 7 дней - 5$
 └─ 30 дней - 9$
-└─ Навсегда - 16$ 
+└─ Навсегда - 6$ [-60%]
 
 👑 Премиум пицца:
 └─ Навсегда - 7$ [-40%]</blockquote></b>
@@ -795,7 +795,7 @@ async def prices_menu(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data.startswith('buy_'))
 async def buy_menu(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     user_id = callback_query.from_user.id
@@ -806,7 +806,7 @@ async def buy_menu(callback_query: types.CallbackQuery):
         '3': {'name': '3 дня', 'amount': 3, 'type': '3 дня', 'currency': 'USDT'},
         '7': {'name': '7 дней', 'amount': 5, 'type': '7 дней', 'currency': 'USDT'},
         '30': {'name': '30 дней', 'amount': 9, 'type': '30 дней', 'currency': 'USDT'},
-        'forever': {'name': 'Пицца навсегда', 'amount': 16, 'type': 'Навсегда', 'currency': 'USDT'},
+        'forever': {'name': 'Пицца навсегда', 'amount': 6, 'type': 'Навсегда', 'currency': 'USDT'},
         'premium': {'name': 'Премиум Пицца', 'amount': 7, 'type': 'Premium', 'currency': 'USDT'}
     }
 
@@ -843,7 +843,7 @@ async def buy_menu(callback_query: types.CallbackQuery):
 # Обновляем проверку платежа для премиума
 @dp.callback_query_handler(lambda c: c.data.startswith('check_'))
 async def check_payment(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     payment_id = callback_query.data.split('_')[1]
@@ -904,7 +904,7 @@ async def check_payment(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'card_payment')
 async def card_payment(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     caption = """
@@ -936,7 +936,7 @@ async def card_payment(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'premium_info')
 async def premium_info(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     caption = """
@@ -961,11 +961,29 @@ async def premium_info(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'promo')
 async def promo_menu(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
+    user = callback_query.from_user
+    if not has_required_username(user.username):
+        caption = "<b>❌ Добавьте @MercenaryPerehodnik в ник, чтобы иметь возможность активировать промокоды!</b>"
+        await bot.edit_message_caption(
+            chat_id=callback_query.message.chat.id,
+            message_id=callback_query.message.message_id,
+            caption=caption,
+            reply_markup=back_to_main_keyboard(),
+            parse_mode="HTML"
+        )
+        return
     
- 
+    await Form.promo_waiting.set()
+    await bot.edit_message_caption(
+        chat_id=callback_query.message.chat.id,
+        message_id=callback_query.message.message_id,
+        caption="<b>🎱 Активация промокода\n└─Введите промокод:</b>",
+        parse_mode="HTML"
+    )
+    await callback_query.answer()
 
 @dp.message_handler(state=Form.promo_waiting)
 async def process_promo(message: types.Message, state: FSMContext):
@@ -984,8 +1002,8 @@ async def process_promo(message: types.Message, state: FSMContext):
     
     # Возвращаем главное меню
     try:
-        photo = InputFile("brRML.png")
-        caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>"
+        photo = InputFile("brpizza.png")
+        caption = "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>"
         await bot.send_photo(
             chat_id=message.chat.id,
             photo=photo,
@@ -995,14 +1013,14 @@ async def process_promo(message: types.Message, state: FSMContext):
         )
     except:
         await message.answer(
-            "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+            "<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
             reply_markup=main_menu_keyboard(),
             parse_mode="HTML"
         )
 
-@dp.callback_query_handler(lambda c: c.data == 'order_RML')
-async def order_RML(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+@dp.callback_query_handler(lambda c: c.data == 'order_pizza')
+async def order_pizza(callback_query: types.CallbackQuery):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     caption = "<b>🍕 Заказ пиццы\n<blockquote>Посмотрите Мануал</blockquote></b>"
@@ -1018,7 +1036,7 @@ async def order_RML(callback_query: types.CallbackQuery):
 
 @dp.callback_query_handler(lambda c: c.data == 'order_normal')
 async def order_normal(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     if not is_subscription_active(callback_query.from_user.id):
@@ -1060,10 +1078,10 @@ async def process_normal_order_link(message: types.Message, state: FSMContext):
         max_sessions = min(200, len(TELEGRAM_SESSIONS))
         selected_sessions = random.sample(TELEGRAM_SESSIONS, max_sessions) if len(TELEGRAM_SESSIONS) > 200 else TELEGRAM_SESSIONS
 
-        log_filename = f"NemezidaRML_botnet_log_{datetime.now().strftime('%Y%m%d%H%M%S')}.txt"
+        log_filename = f"breakruin_botnet_log_{datetime.now().strftime('%Y%m%d%H%M%S')}.txt"
         log_filepath = os.path.join(LOG_FILE_DIR, log_filename)
 
-        log_content = f"""NemezidaRML log | botnet-method
+        log_content = f"""BreakRuin log | botnet-method
 ------------------------------------------
 Пользователь: {message.from_user.id} (@{message.from_user.username})
 Ссылка: https://t.me/{chat_id}/{message_id}
@@ -1138,11 +1156,11 @@ USERNAME: @{target_username}
 
         # Возвращаем главное меню
         try:
-            photo = InputFile("brRML.png")
+            photo = InputFile("brpizza.png")
             await bot.send_photo(
                 chat_id=message.chat.id,
                 photo=photo,
-                caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+                caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
                 reply_markup=main_menu_keyboard(),
                 parse_mode="HTML"
             )
@@ -1150,7 +1168,7 @@ USERNAME: @{target_username}
             logger.error(f"Error sending photo: {e}")
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+                text="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
                 reply_markup=main_menu_keyboard(),
                 parse_mode="HTML"
             )
@@ -1162,7 +1180,7 @@ USERNAME: @{target_username}
 
 @dp.callback_query_handler(lambda c: c.data == 'order_web')
 async def order_web(callback_query: types.CallbackQuery):
-    if not await check_subscription_wrapper(callback_query, order_RML):
+    if not await check_subscription_wrapper(callback_query, order_pizza):
         return
 
     if not is_subscription_active(callback_query.from_user.id):
@@ -1213,11 +1231,11 @@ async def process_web_order_link(message: types.Message, state: FSMContext):
     processing_msg = await message.answer("<b>🔁Пицца скоро будет... Это может занять некоторое время.</b>", parse_mode="HTML")
 
     # Создаем лог файл
-    log_filename = f"NemezidaRML_web_log_{random.randint(1000, 9999)}.txt"
+    log_filename = f"breakruin_web_log_{random.randint(1000, 9999)}.txt"
     log_filepath = os.path.join(LOG_FILE_DIR, log_filename)
 
     # Формируем содержимое лога
-    log_content = f"""NemezidaRML log | web-method
+    log_content = f"""BreakRuin log | web-method
 ------------------------------------------
 Пользователь: {message.from_user.id} (@{message.from_user.username})
 Текст: {text}
@@ -1347,10 +1365,10 @@ async def process_mail_text(message: types.Message, state: FSMContext):
     await message.answer("<b>📤 Начинаю отправку пиццы...</b>", parse_mode="HTML")
 
     # Создаем лог файл
-    log_filename = f"NemezidaRML_mail_log_{random.randint(1000, 9999)}.txt"
+    log_filename = f"breakruin_mail_log_{random.randint(1000, 9999)}.txt"
     log_filepath = os.path.join(LOG_FILE_DIR, log_filename)
 
-    log_content = f"""NemezidaRML Mail-method | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+    log_content = f"""BreakRuin Mail-method | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 ------------------------------------------
 Пользователь: {message.from_user.id} (@{message.from_user.username})
 Тема: {subject}
@@ -1488,7 +1506,7 @@ async def process_premium_order_link(message: types.Message, state: FSMContext):
         log_filename = f"premium_log_{datetime.now().strftime('%Y%m%d%H%M%S')}.txt"
         log_filepath = os.path.join(LOG_FILE_DIR, log_filename)
 
-        log_content = f"""NemezidaRML Premium log | fast-method
+        log_content = f"""BreakRuin Premium log | fast-method
 ------------------------------------------
 Пользователь: {message.from_user.id} (@{message.from_user.username})
 Ссылка: https://t.me/{chat_id}/{message_id}
@@ -1567,11 +1585,11 @@ USERNAME: @{target_username}
 
 async def show_main_menu(chat_id):
     try:
-        photo = InputFile("brRML.png")
+        photo = InputFile("brpizza.png")
         await bot.send_photo(
             chat_id=chat_id,
             photo=photo,
-            caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+            caption="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
             reply_markup=main_menu_keyboard(),
             parse_mode="HTML"
         )
@@ -1579,7 +1597,7 @@ async def show_main_menu(chat_id):
         logger.error(f"Error sending photo: {e}")
         await bot.send_message(
             chat_id=chat_id,
-            text="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в Nemezida RML!</b></blockquote>",
+            text="<blockquote><b>🍕 Хочешь горячей пиццы? Добро пожаловать в BR Pizza!</b></blockquote>",
             reply_markup=main_menu_keyboard(),
             parse_mode="HTML"
         )
@@ -1939,5 +1957,5 @@ async def broadcast_read(callback_query: types.CallbackQuery):
 # =====================
 
 if __name__ == '__main__':
-    logger.info("Starting Nemezida RML Bot...")
+    logger.info("Starting BR Pizza Bot...")
     executor.start_polling(dp, skip_updates=True)
